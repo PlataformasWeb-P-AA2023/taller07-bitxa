@@ -21,11 +21,11 @@ def load_players_data(data, session):
         jugador = Jugador(nombre=nombre, dorsal=numero, posicion=posicion, club=club)
         session.add(jugador)
         
-if __name__ == '__main__':
-    clubs_data = pd.read_csv('../data/datos_clubs.txt', sep=';', header=None)
+def upload_data():
+    clubs_data = pd.read_csv('./data/datos_clubs.txt', sep=';', header=None)
     clubs_data.columns = ["nombre", "deporte", "fundacion"]
     
-    players_data = pd.read_csv('../data/datos_jugadores.txt', sep=';', header=None)
+    players_data = pd.read_csv('./data/datos_jugadores.txt', sep=';', header=None)
     players_data.columns =["club", "posicion", "numero", "nombre"]
     
     session = connection.get_session()
@@ -34,3 +34,4 @@ if __name__ == '__main__':
     load_players_data(players_data, session)
     
     session.commit()
+    session.close()
